@@ -6,8 +6,11 @@ gem 'rails', '3.0.7'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'jquery-rails'
 
 gem 'shopify_app', '1.0.1'
+gem 'mongo_mapper'
+gem 'factory_girl_rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'

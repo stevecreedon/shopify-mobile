@@ -1,17 +1,24 @@
 ShopifyMobile::Application.routes.draw do
-  root :to                   => 'home#index'
+  root :to                   => 'shop#index'
 
-  match 'welcome'            => 'home#welcome'
 
-  match 'design'             => 'home#design'
+  match 'shop_owners'            => 'shop_owners/home#index'
 
-  match 'login'              => 'login#index'
+  match 'design'             => 'shop_owners/home#design'
 
-  match 'login/authenticate' => 'login#authenticate'
+  match 'login'              => 'shop_owners/login#index'
 
-  match 'login/finalize'     => 'login#finalize'
+  match 'login/authenticate' => 'shop_owners/login#authenticate'
 
-  match 'login/logout'       => 'login#logout'
+  match 'login/finalize'     => 'shop_owners/login#finalize'
+
+  match 'login/logout'       => 'shop_owners/login#logout'
+  
+  resources :collections
+  
+  namespace :shop_owners do
+    resources :collections
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

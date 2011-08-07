@@ -1,2 +1,6 @@
-class Shop < ActiveRecord::Base
+class Shop
+  include MongoMapper::Document
+
+  key :domain, String
+  
 end

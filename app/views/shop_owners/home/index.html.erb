@@ -1,3 +1,8 @@
+<script>
+	$(document).ready(function(){
+		mobi.index.initCollectionPublishBoxes();
+	})
+</script>
 <div id="sidebar">
   <h3>Where to start</h3>
   <h4>Check out the <code style="font-size: 140%">home_controller</code></h4>
@@ -49,55 +54,9 @@
 
 
 <div id="orders">
-  <h2>Your recent orders</h2>
-
-  <% if @orders.blank? %>  
-
-    <em class="note">There are no orders in your store.</em>
-
-  <% else %>
-
-    <ul>
-    <% @orders.each do |order| %>
-      <li>
-        <div class="order box">
-          <div class="wrapper">
-            <strong><%= link_to order.name, "https://#{current_shop.url}/admin/orders/#{order.id}" %></strong>
-            <span class="price"><%= order.total_price %> <%= order.currency %></span>
-            <span class="highlight"><%= order.financial_status %></span>
-            by <span class="note"><%= order.billing_address.name %></span>
-          </div>
-        </div>
-      </li>
-    <% end %>
-    </ul>
-
+  <h2>Select the collections you want published to mobile</h2>
+  <% Collection.all.each do |collection| %>
+  	<%= check_box_tag 'collection[mobile]', collection.id, collection.mobile, :class => 'publish_collection' %> <%= collection.title %><br/>
   <% end %>
 </div>
 
-
-<h2>Some of your products</h2>
-
-<% if @products.blank? %>
-
-  <em class="note">There are no products in your store.</em>
-
-<% else %>
-
-  <% @products.each do |product| %>
-    <div class="product box">
-      <div class="wrapper">
-        <%= image_tag product.images.first.small rescue '' %>
-
-        <h4><%= link_to product.title, "https://#{current_shop.url}/admin/products/#{product.id}" %></h4>
-
-        <p class="price"><%= product.price_range %> <%= current_shop.shop.currency %></p>
-        <p style="margin-bottom: 0"><%= product.product_type %> <span class="note">type</span></p>
-        <p style="margin: 0"><%= product.vendor %> <span class="note">vendor</span></p>
-      
-        <div style="clear:left"></div>
-      </div>
-    </div>
-  <% end %>
-
-<% end %>

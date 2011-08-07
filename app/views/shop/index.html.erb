@@ -1,0 +1,13 @@
+<div data-role="header">
+  <h1>Listing collections</h1>
+</div>
+ 
+<div data-role="content">
+  <ul data-role="listview">
+    <% @collections.each do |collection| %>
+    <li>
+      <%= link_to collection.title, collection %>
+    </li>
+    <% end %>
+  </ul>
+</div>
