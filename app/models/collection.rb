@@ -1,10 +1,10 @@
 class Collection
   include MongoMapper::Document
+  include Slugify
   
-  before_save :slugify
+  validates_presence_of :title
+  before_save :collects_to_mongo, :slugify
   
-  many :collects
-
   key :shopify_shop_id, String
   key :body_html, String
   key :mobile, Boolean
@@ -15,17 +15,16 @@ class Collection
   key :published_at, Time
   key :type, String
   key :slug, String
-  
+  key :collects, Array
   
   def to_param
     slug
   end
-
+  
   private 
   
-  def slugify
-    return if self.slug
-    self.slug = self.title.slugify if self.title
+  def collects_to_mongo
+    self.collects.map! { |c| c.to_mongo } 
   end
 
 end

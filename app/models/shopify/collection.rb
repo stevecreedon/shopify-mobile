@@ -14,14 +14,11 @@ class Shopify::Collection
       c.collects.clear
       shopify_collects = ShopifyAPI::Collect.find(:all, :params => {:collection_id => shopify_collection})
       
-      shopify_collects.each do |shopify_collect|  
-          collect = c.collects.build(:position => shopify_collect.position,
-                           :creatd_at => shopify_collect.created_at,
-                           :updated_at => shopify_collect.updated_at,
-                           :featured => shopify_collect.featured,
-                           :shopify_id => shopify_collect.id,
-                           :position => shopify_collect.position,
-                           :collection_id => c.id)                
+      shopify_collects.each do |shopify_collect|
+          product = Product.find_by_id(shopify_collect.product_id) 
+          c.collects << { :title => product.title,
+                          :slug => product.slug,
+                          :position => shopify_collect.position}     
       end
       c.save
       c

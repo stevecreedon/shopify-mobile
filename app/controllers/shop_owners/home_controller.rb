@@ -11,9 +11,10 @@ module ShopOwners
     def index
       @shop = ShopifyAPI::Shop.current
       Shopify::Shop.to_mongo(@shop)
+      @products = Shopify::Product.to_mongo(ShopifyAPI::Product.find(:all))
       @custom_collections = Shopify::Collection.to_mongo(@shop, ShopifyAPI::CustomCollection.find(:all)) 
       @smart_collections = Shopify::Collection.to_mongo(@shop, ShopifyAPI::SmartCollection.find(:all))
-      @products = Shopify::Product.to_mongo(ShopifyAPI::Product.find(:all))
+      
     end
   
   end

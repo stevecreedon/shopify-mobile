@@ -1,7 +1,10 @@
 class Product
   include MongoMapper::Document
+  include Slugify
       has_many :variants
       has_many :images
+      
+      validates_presence_of :title
       
       before_save :slugify
       
@@ -17,12 +20,7 @@ class Product
       key :published_at, Time
       key :slug, String
       
-      private 
-
-      def slugify
-        return if self.slug
-        self.slug = self.title.slugify if self.title
-      end
+      
 end
 
   
