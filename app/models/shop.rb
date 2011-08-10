@@ -1,6 +1,6 @@
 class Shop
-  include MongoMapper::Document
+  include Mongoid::Document
 
-  key :domain, String
+  field :domain, :type => String
   
 end

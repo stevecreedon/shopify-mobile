@@ -40,10 +40,8 @@ class Shopify::Product
         product.images.clear
 
         shopify_product.images.each do |shopify_image|
-          product.images.build(:position => shopify_image.position,
-                                :created_at => shopify_image.created_at,
-                                :updated_at => shopify_image.updated_at,
-                                :src => shopify_image.src)
+          product.images << {:position => shopify_image.position,
+                             :src => shopify_image.src}
         end
 
         product.save

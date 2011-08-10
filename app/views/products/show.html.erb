@@ -1,0 +1,8 @@
+<div data-role="header">
+  <h1><%= @product.title %></h1>
+  <%= link_to 'Home', root_url, "class" => "ui-btn-right" %>
+</div>
+ 
+<div data-role="content">
+  <%= raw @product.body_html %>
+</div>

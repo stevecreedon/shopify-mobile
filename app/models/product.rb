@@ -1,25 +1,24 @@
 class Product
-  include MongoMapper::Document
+  include Mongoid::Document
   include Slugify
-      has_many :variants
-      has_many :images
+      embeds_many :variants
       
       validates_presence_of :title
       
       before_save :slugify
       
-      key :product_type, String
-      key :handle, String
-      key :created_at, Time
-      key :body_html, String
-      key :title, String
-      key :template_suffix, String
-      key :updated_at, Time
-      key :tags, String
-      key :vendor, String
-      key :published_at, Time
-      key :slug, String
-      
+      field :product_type, :type => String
+      field :handle, :type => String
+      field :created_at, :type => Time
+      field :body_html, :type => String
+      field :title, :type => String
+      field :template_suffix, :type => String
+      field :updated_at, :type => Time
+      field :tags, :type => String
+      field :vendor, :type => String
+      field :published_at, :type => Time
+      field :slug, :type => String
+      field :images, :type => Array
       
 end
 

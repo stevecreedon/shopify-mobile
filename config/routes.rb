@@ -15,6 +15,7 @@ ShopifyMobile::Application.routes.draw do
   match 'login/logout'       => 'shop_owners/login#logout'
   
   resources :collections
+  resources :products
   
   namespace :shop_owners do
     resources :collections

@@ -1,30 +1,24 @@
 class Collection
-  include MongoMapper::Document
+  include Mongoid::Document
   include Slugify
   
   validates_presence_of :title
-  before_save :collects_to_mongo, :slugify
+  before_save :slugify
   
-  key :shopify_shop_id, String
-  key :body_html, String
-  key :mobile, Boolean
-  key :title, String
-  key :template_suffix, String
-  key :sort_order, Integer
-  key :updated_at, Time
-  key :published_at, Time
-  key :type, String
-  key :slug, String
-  key :collects, Array
+  field :shopify_shop_id, :type => String
+  field :body_html, :type => String
+  field :mobile, :type => Boolean
+  field :title, :type => String
+  field :template_suffix, :type => String
+  field :sort_order, :type => Integer
+  field :updated_at, :type => Time
+  field :published_at, :type => Time
+  field :type, :type => String
+  field :slug, :type => String
+  field :collects, :type => Array
   
   def to_param
     slug
   end
   
-  private 
-  
-  def collects_to_mongo
-    self.collects.map! { |c| c.to_mongo } 
-  end
-
 end

@@ -1,0 +1,13 @@
+<div data-role="header">
+  <h1>Listing products</h1>
+</div>
+ 
+<div data-role="content">
+  <ul data-role="listview">
+    <% @collection.collects.each do |collect| %>
+    <li>
+      <%= link_to collect["title"], product_path(collect["slug"]) %>
+    </li>
+    <% end %>
+  </ul>
+</div>

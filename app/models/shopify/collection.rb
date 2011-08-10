@@ -18,7 +18,8 @@ class Shopify::Collection
           product = Product.find_by_id(shopify_collect.product_id) 
           c.collects << { :title => product.title,
                           :slug => product.slug,
-                          :position => shopify_collect.position}     
+                          :position => shopify_collect.position,
+                          :img => product.images.first.try(:[], 'src')}     
       end
       c.save
       c

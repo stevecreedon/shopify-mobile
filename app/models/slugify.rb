@@ -14,7 +14,7 @@ module Slugify
   end
   
   def handle_exists?(slug)
-    !self.class.find_by_slug(slug).nil?
+    !self.class.where({:slug => slug}).empty?
   end
   
 end

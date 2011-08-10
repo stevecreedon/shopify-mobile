@@ -9,7 +9,10 @@ gem 'sqlite3'
 gem 'jquery-rails'
 
 gem 'shopify_app', '1.0.1'
-gem 'mongo_mapper'
+
+gem "mongoid", "~> 2.1"
+gem "bson_ext", "~> 1.3"
+
 gem 'factory_girl_rails'
 
 # Use unicorn as the web server
