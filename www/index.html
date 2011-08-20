@@ -1,51 +1,15 @@
 <html>
 	<head>
-		<script type="text/javascript" src="js/sencha-touch.js"></script>
 		<link href="css/sencha-touch.css" type="text/css" rel="stylesheet">
-		<script>
-			new Ext.Application({
-				launch: function(){
-					new Ext.Panel({
-						fullscreen: true,
-						html: 'Hello World'
-					})
-				}
-			});
-			
-			
-			Ext.regModel('Product', {
-				fields: [
-					{name: "name", type: "string"},
-					{name: "description", type: "string"},
-					{name: "price", type: "float"},
-					{name: "image_url", type: "string"}
-				]
-			});
-			
-			var productsList = new Ext.dataView({
-				store: new Ext.data.Store({
-					model: 'Product',
-					proxy: {
-						type: 'ajax',
-						url: '/products.json',
-						reader:{
-							type: 'json',
-							root: 'products'
-						}		
-					}
-				}),
-				tpl: new Ext.XTemplate(
-					'<tpl for=".">',
-						'<div>',
-							'<img src="{image_url}" />',
-							'<div class="button">Buy</div>',
-						'</div>',
-					'</tpl>'	
-				),
-				fullscreen: true
-			});
-			
-		</script>	
+		<script type="text/javascript" src="js/sencha-touch.js"></script>
+		<script type="text/javascript" src="app/models/collection.js"></script>
+		<script type="text/javascript" src="app/models/collect.js"></script>
+		<script type="text/javascript" src="app/models/product.js"></script>
+		<script type="text/javascript" src="app/app.js"></script>
+		<script type="text/javascript" src="app/views/templates.js"></script>
+		<script type="text/javascript" src="app/views/viewport.js"></script>
+		<script type="text/javascript" src="app/views/collections.js"></script>
+		<script type="text/javascript" src="app/views/collection_products.js"></script>				
 	</head>	
 	<body>
 	

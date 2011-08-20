@@ -15,7 +15,6 @@ class Collection
   field :published_at, :type => Time
   field :type, :type => String
   field :slug, :type => String
-  field :collects, :type => Array
   
   def to_param
     slug

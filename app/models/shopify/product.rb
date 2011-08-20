@@ -4,7 +4,7 @@ class Shopify::Product
   def self.to_mongo(shopify_products)
     
     products = shopify_products.collect do |shopify_product|
-        product = ::Product.find_or_create_by_id(shopify_product.id)
+        product = ::Product.find_or_create_by(:id => shopify_product.id)
         product.product_type = shopify_product.product_type
         product.handle = shopify_product.handle
         product.created_at = shopify_product.created_at
