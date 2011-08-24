@@ -9,7 +9,7 @@ mobi.views.fetchProductsList = function(collection_id){
 		mobi.views.viewport.add(productsList);
 	}
 	
-    mobi.views.viewport.getLayout().setActiveItem(productsList, {type: 'slide', direction: 'left'});
+	return productsList;
 }
 
 mobi.views.createProductsListPanel = function(collection_id){
@@ -31,12 +31,11 @@ mobi.views.createProductsListPanel = function(collection_id){
 	    // Bind our listeners to the each InnerList item.
 	    // On itemtap, we grab the current record so we can create the full size image overlay.
 	    // We added a loading animation while the image is downloaded so the user knows what's going on.
-	    listeners: {
+		listeners: {
 	        itemtap: function (list, index, element, event) {
 	            // Grab a reference the record.
-
 	            var record = list.getRecord(element);
-
+	           mobi.views.fetchProduct(record.raw._id);
 	        }
 	    }
 
@@ -59,7 +58,6 @@ mobi.views.createProductsListPanel = function(collection_id){
 	 		items:  [{ ui: 'back', text: 'Back' }],
 	        defaults: { handler: tapHandler }
 	    }],
-
 	    items: [
 	        // The TeagramLists is made up of a collection of TeagramInnerLists, defined above.
 	        new mobi.views.CollectionProductsList({
@@ -76,7 +74,7 @@ mobi.views.createProductsListPanel = function(collection_id){
 	                       proxy: {
 
 							 type: 'ajax',
-							 url: 'http://mobi.co.uk/db/collects?collection_id=' + collection_id,
+							 url: '/db/collects?collection_id=' + collection_id,
 							 reader:{
 								type: 'json',
 							 }	

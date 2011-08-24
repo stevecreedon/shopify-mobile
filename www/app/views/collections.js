@@ -32,8 +32,8 @@ mobi.views.createCollectionsList = function(){
 	        itemtap: function (list, index, element, event) {
 	            // Grab a reference the record.
 	            var record = list.getRecord(element);
-	            mobi.views.fetchProductsList(record.raw._id);
-
+	            var productsList = mobi.views.fetchProductsList(record.raw._id);
+				mobi.views.viewport.getLayout().setActiveItem(productsList, {type: 'slide', direction: 'left'});
 	        }
 	    }
 
@@ -66,7 +66,7 @@ mobi.views.createCollectionsList = function(){
 	                       proxy: {
 
 							 type: 'ajax',
-							 url: 'http://mobi.co.uk/db/collections?title=only',
+							 url: '/db/collections?title=only',
 							 reader:{
 								type: 'json',
 							 }	
