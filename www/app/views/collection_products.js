@@ -1,10 +1,10 @@
 // This is the list item inside in the main list.  It is created for every record in the model, or simply
 // each item in the array returned from the Instagram API.
 
-mobi.views.fetchProductsList = function(collection){
-	productsList = mobi.views.createProductsListPanel(collection);
-	return productsList;
+mobi.views.productsListPanelId = function(collection){
+	return 'collection_products_' + collection.data._id;
 }
+
 
 mobi.views.createProductsListPanel = function(collection){
 	
@@ -44,7 +44,7 @@ mobi.views.createProductsListPanel = function(collection){
 	// This panel contains a docked toolbar at the top and then its items are all instances 
 	// of the TeagramInnerList component defined above.
 	mobi.views.CollectionProductsListPanel = Ext.extend(Ext.Panel, {
-		id: 'collection_products_' + collection.data._id,
+		id: mobi.views.productsListPanelId(collection),
 	    layout: 'fit',
 	    dockedItems: [{
 	        xtype: 'toolbar',
