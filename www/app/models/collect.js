@@ -18,8 +18,3 @@ Ext.regModel('Collect', {
 		}	
 	}
 });
-
-mobi.stores.collects = new Ext.data.Store({
-       id: 'mobi_collection_products',
-       model: 'Collect',
-})
