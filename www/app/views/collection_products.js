@@ -1,18 +1,13 @@
 // This is the list item inside in the main list.  It is created for every record in the model, or simply
 // each item in the array returned from the Instagram API.
 
-mobi.views.fetchProductsList = function(collection_id){
-	var productsList = mobi.views.viewport.getComponent('collection_products_' + collection_id); 
-	
-	if(productsList == null){
-		productsList = mobi.views.createProductsListPanel(collection_id);
-		mobi.views.viewport.add(productsList);
-	}
-	
+mobi.views.fetchProductsList = function(collection){
+	productsList = mobi.views.createProductsListPanel(collection);
 	return productsList;
 }
 
-mobi.views.createProductsListPanel = function(collection_id){
+mobi.views.createProductsListPanel = function(collection){
+	
 	
 	mobi.views.CollectionProductsList = Ext.extend(Ext.List, {
 
@@ -35,7 +30,7 @@ mobi.views.createProductsListPanel = function(collection_id){
 	        itemtap: function (list, index, element, event) {
 	            // Grab a reference the record.
 	            var record = list.getRecord(element);
-	           mobi.views.fetchProduct(record.raw._id);
+	            mobi.views.fetchProduct(collection_id, record.raw.product_id);
 	        }
 	    }
 
@@ -44,12 +39,12 @@ mobi.views.createProductsListPanel = function(collection_id){
     var tapHandler = function (btn, evt) {
 	    mobi.views.viewport.getLayout().setActiveItem(mobi.views.collectionsList, {type: 'slide', direction: 'right'});
 	}
-
+	
 	// Main Panel component.
 	// This panel contains a docked toolbar at the top and then its items are all instances 
 	// of the TeagramInnerList component defined above.
 	mobi.views.CollectionProductsListPanel = Ext.extend(Ext.Panel, {
-		id: 'collection_products_' + collection_id,
+		id: 'collection_products_' + collection.data._id,
 	    layout: 'fit',
 	    dockedItems: [{
 	        xtype: 'toolbar',
@@ -59,29 +54,7 @@ mobi.views.createProductsListPanel = function(collection_id){
 	        defaults: { handler: tapHandler }
 	    }],
 	    items: [
-	        // The TeagramLists is made up of a collection of TeagramInnerLists, defined above.
-	        new mobi.views.CollectionProductsList({
-	                   store: new Ext.data.Store({
-	                       // We provide an id for the store so it's easy to debug.
-	                       // You can pull it up in the console with
-	                       // Ext.getStore('store_tp');
-	                       id: 'mobi_collection_products',
-	                       // State the model to which we want to be bound, namely, TeagramPhoto (defined in models/TeagramPhoto.js)
-	                       model: 'Collect',
-	                       // Fire off a request when the page loads.  Here is why we don't *need* a controller for this simple view.
-	                       //autoLoad: true,
-						   autoLoad: true,
-	                       proxy: {
-
-							 type: 'ajax',
-							 url: '/db/collects?collection_id=' + collection_id,
-							 reader:{
-								type: 'json',
-							 }	
-
-	                       }
-	                   })
-	               })
+	        new mobi.views.CollectionProductsList({store: collection.collectsStore})
 	    ]
 	});
 	

@@ -1,18 +1,12 @@
 var sys = require("sys");
 var common = require("./common");
 var db = common.mongo.db;
-var url = require('url')
-exports.controller = {
-	index: function(request, response){	
-		var urlObj = url.parse(request.url, true);
-	    var query = {};
 
-		if(urlObj.query.collection_id){
-			query = {"collection_id": parseInt(urlObj.query.collection_id)}
-		}
-	
+exports.controller = {
+	index: function(request, response){
+		sys.log(unescape(request.url))
 		db.collection('collects', function(err, collection) {
-			collection.find(query, function(err, cursor) {
+			collection.find(common.url.getFilters(request), function(err, cursor) {
 		        cursor.toArray(function(err, docs) {
 		          	response.write(JSON.stringify(docs))
 		          	response.end();   

@@ -32,13 +32,11 @@ mobi.views.createCollectionsList = function(){
 	        itemtap: function (list, index, element, event) {
 	            // Grab a reference the record.
 	            var record = list.getRecord(element);
-	            var productsList = mobi.views.fetchProductsList(record.raw._id);
-				mobi.views.viewport.getLayout().setActiveItem(productsList, {type: 'slide', direction: 'left'});
+	            mobi.controllers.collects.index(record);
 	        }
 	    }
 
 	});
-
 
 	// Main Panel component.
 	// This panel contains a docked toolbar at the top and then its items are all instances 
@@ -54,29 +52,11 @@ mobi.views.createCollectionsList = function(){
 	    items: [
 	        // The TeagramLists is made up of a collection of TeagramInnerLists, defined above.
 	        new mobi.views.CollectionsList({
-	                   store: new Ext.data.Store({
-	                       // We provide an id for the store so it's easy to debug.
-	                       // You can pull it up in the console with
-	                       // Ext.getStore('store_tp');
-	                       id: 'mobi_collections',
-	                       // State the model to which we want to be bound, namely, TeagramPhoto (defined in models/TeagramPhoto.js)
-	                       model: 'Collection',
-	                       // Fire off a request when the page loads.  Here is why we don't *need* a controller for this simple view.
-	                       autoLoad: true,
-	                       proxy: {
-
-							 type: 'ajax',
-							 url: '/db/collections?title=only',
-							 reader:{
-								type: 'json',
-							 }	
-
-	                       }
-	                   })
-	               })
+	             store: mobi.stores.collections
+	        })
 	    ]
 	});
 	
-	return new mobi.views.CollectionsListPanel();	
+	return new mobi.views.CollectionsListPanel();
 }
 
