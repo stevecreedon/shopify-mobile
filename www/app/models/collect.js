@@ -2,9 +2,9 @@ Ext.regModel('Collect', {
 	fields: [
 		{name: "product_title", type: "string"},
 		{name: 'product_url', convert: function(value, record) {return mobi.views.shopifyImage(value, "thumb");}},
-		{name: "product_id", type: "string"},
-		{name: "collection_id", type: "string"},
-		{name: "_id", type: "string"}
+		{name: "product_id", type: "int"},
+		{name: "collection_id", type: "int"},
+		{name: "_id", type: "int"}
 	],
 	idProperty: "_id",
 	associations: [
