@@ -1,3 +1,4 @@
+
 Ext.regModel('Collection', {
 	fields: [
 		{name: "title", type: "string"},
@@ -16,8 +17,12 @@ Ext.regModel('Collection', {
     }
 });
 
+mobi.models.Collection = {
+	store_key: 'collections-store',
+}
 
 var store = new Ext.data.Store({
        model: 'Collection',
-	   storeId: 'collections-store'
+	   storeId: mobi.models.Collection.store_key
 })
+

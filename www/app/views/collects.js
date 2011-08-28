@@ -1,15 +1,25 @@
 // This is the list item inside in the main list.  It is created for every record in the model, or simply
 // each item in the array returned from the Instagram API.
 
-mobi.views.collectsListId = function(collection){
-	return 'collects-' + collection.data._id;
+mobi.views.renderCollectsList = function(collection){
+	var items = [new mobi.views.Collect.List({store: collection.collectsStore})];
+	var id = mobi.views.Collect.key(collection)
+	return new mobi.views.Collect.ListPanel({id: id, items: items});
 }
 
-
-mobi.views.renderCollectsList = function(collection){
-	
-	
-	mobi.views.CollectsList = Ext.extend(Ext.List, {
+mobi.views.Collect = {
+	key: function(collection){return 'collects-view-' + collection.data._id;},
+	ListPanel: Ext.extend(Ext.Panel, {
+    	layout: 'fit',
+    	dockedItems: [{
+        xtype: 'toolbar',
+        // Note, you can pass in not only some text, but also a block of HTML, including a base64 encoded image.
+        title: 'mobi',
+ 		items:  [{ ui: 'back', text: 'Back' }],
+        	defaults: { handler: function (btn, evt) {mobi.controllers.collections.index({direction: 'right'});}}
+    	}]
+	}),
+	List: Ext.extend(Ext.List, {
 
 	    // Each item in the InnerList will be rendered with our imgTpl() declared in our Templates.js file.
 	    itemTpl: mobi.views.collectionProductsInnerListItemTpl(),
@@ -34,29 +44,6 @@ mobi.views.renderCollectsList = function(collection){
 	        }
 	    }
 
-	});
-
-    var tapHandler = function (btn, evt) {
-	   mobi.controllers.collections.index({direction: 'right'});
-	}
-	
-	// Main Panel component.
-	// This panel contains a docked toolbar at the top and then its items are all instances 
-	// of the TeagramInnerList component defined above.
-	mobi.views.CollectsListPanel = Ext.extend(Ext.Panel, {
-		id: mobi.views.collectsListId(collection),
-	    layout: 'fit',
-	    dockedItems: [{
-	        xtype: 'toolbar',
-	        // Note, you can pass in not only some text, but also a block of HTML, including a base64 encoded image.
-	        title: 'mobi',
-	 		items:  [{ ui: 'back', text: 'Back' }],
-	        defaults: { handler: tapHandler }
-	    }],
-	    items: [
-	        new mobi.views.CollectsList({store: collection.collectsStore})
-	    ]
-	});
-	
-	return new mobi.views.CollectsListPanel();
+	})
 }
+
