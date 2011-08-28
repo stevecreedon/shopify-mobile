@@ -1,13 +1,4 @@
-mobi.views.ShopPanel = Ext.extend(Ext.Panel, {
-	layout: 'fit',
-	html: 'welcome'
-})
-
-mobi.views.fetchCollectionsList = function(){
-	return mobi.views.createCollectionsList();
-}
-
-mobi.views.createCollectionsList = function(){
+mobi.views.renderCollectionsList = function(){
 	
 	// This is the list item inside in the main list.  It is created for every record in the model, or simply
 	// each item in the array returned from the Instagram API.
@@ -42,7 +33,7 @@ mobi.views.createCollectionsList = function(){
 	// This panel contains a docked toolbar at the top and then its items are all instances 
 	// of the TeagramInnerList component defined above.
 	mobi.views.CollectionsListPanel = Ext.extend(Ext.Panel, {
-		id: 'collections_list',
+		id: 'collections-view',
 	    layout: 'fit',
 	    dockedItems: [{
 	        xtype: 'toolbar',
@@ -52,7 +43,7 @@ mobi.views.createCollectionsList = function(){
 	    items: [
 	        // The TeagramLists is made up of a collection of TeagramInnerLists, defined above.
 	        new mobi.views.CollectionsList({
-	             store: mobi.stores.collections
+	             store: Ext.StoreMgr.getByKey("collections-store")
 	        })
 	    ]
 	});

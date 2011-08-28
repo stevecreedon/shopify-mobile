@@ -2,11 +2,11 @@
 // each item in the array returned from the Instagram API.
 
 mobi.views.collectsListId = function(collection){
-	return 'collection_products_' + collection.data._id;
+	return 'collects-' + collection.data._id;
 }
 
 
-mobi.views.createCollectsListPanel = function(collection){
+mobi.views.renderCollectsList = function(collection){
 	
 	
 	mobi.views.CollectsList = Ext.extend(Ext.List, {
@@ -37,7 +37,7 @@ mobi.views.createCollectsListPanel = function(collection){
 	});
 
     var tapHandler = function (btn, evt) {
-	    mobi.views.viewport.getLayout().setActiveItem(mobi.views.collectionsList, {type: 'slide', direction: 'right'});
+	   mobi.controllers.collections.index({direction: 'right'});
 	}
 	
 	// Main Panel component.
