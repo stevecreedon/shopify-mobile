@@ -1,5 +1,5 @@
 mobi.views.renderCollectionsList = function(){	
-	return new mobi.views.Collection.ListPanel();
+	return new mobi.views.Collection.List();
 }
 
 mobi.views.Collection = {
@@ -12,13 +12,13 @@ mobi.views.Collection.List = Ext.extend(Ext.List, {
     listeners: {
         itemtap: function (list, index, element, event) {
             // Grab a reference the record.
-            var record = list.getRecord(element);
-            mobi.controllers.collects.index(record);
+            var collection = list.getRecord(element);
+            mobi.controllers.collects.index(collection);
         }
     }
 });
 
-mobi.views.Collection.ListPanel = Ext.extend(Ext.Panel, {
+mobi.views.Collection.List = Ext.extend(Ext.Panel, {
 	id: 'collections-view',
     layout: 'fit',
     dockedItems: [{

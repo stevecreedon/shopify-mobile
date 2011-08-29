@@ -1,4 +1,4 @@
-Ext.regModel('Collect', {
+mobi.models.Collect = Ext.regModel('Collect', {
 	fields: [
 		{name: "product_title", type: "string"},
 		{name: 'product_url', convert: function(value, record) {return mobi.views.shopifyImage(value, "thumb");}},
@@ -8,10 +8,11 @@ Ext.regModel('Collect', {
 	],
 	idProperty: "_id",
 	associations: [
-	        {type: 'belongsTo', model: 'Collection'}
+	        {type: 'belongsTo', model: 'Collection'},
+	        {type: 'belongsTo', model: 'Product', foreignKey: "_id", primaryKey: "product_id"}
 	],
 	proxy: {
-		type: 'ajax',
+		type: 'rest',  //NOT AJAX!!!
 		url: '/db/collects',
 		reader:{
 			type: 'json',

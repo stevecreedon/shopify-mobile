@@ -19,7 +19,7 @@ exports.controller = {
 		db.collection('products', function(err, collection) {
 			collection.find({'_id':parseInt(id)}, function(err, cursor) {
 	            cursor.nextObject(function(err, doc) {          
-	              	response.write(JSON.stringify(doc))
+	              	response.write(JSON.stringify([doc]))
 	          		response.end();
 	            });
 	        });

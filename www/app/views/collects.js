@@ -20,30 +20,21 @@ mobi.views.Collect = {
     	}]
 	}),
 	List: Ext.extend(Ext.List, {
-
-	    // Each item in the InnerList will be rendered with our imgTpl() declared in our Templates.js file.
 	    itemTpl: mobi.views.collectionProductsInnerListItemTpl(),
-
-	    // The class name associated with each InnerList item.  We can style using this as the root CSS class for
-	    // all styles inside the InnerList items.
 	    itemCls: 'mobi-collection-item',
-
-	    // Here's where we add the pull to refresh plugin.  Yep, that's all you need to do. =)
-	    //plugins: [{
-	    //    ptype: 'pullrefresh'
-	    //}],
-
-	    // Bind our listeners to the each InnerList item.
-	    // On itemtap, we grab the current record so we can create the full size image overlay.
-	    // We added a loading animation while the image is downloaded so the user knows what's going on.
 		listeners: {
 	        itemtap: function (list, index, element, event) {
 	            // Grab a reference the record.
-	            var record = list.getRecord(element);
-	            mobi.views.fetchProduct(collection_id, record.raw.product_id);
+	            var collect = list.getRecord(element);
+	            var model = new mobi.models.Product({_id: collect.get("product_id")}, null);
+		        collect.getProduct({records: [model],
+										success: function(product, operation){ mobi.controllers.products.show(product); }
+								   });
+	             
+	           
 	        }
 	    }
-
 	})
 }
 
+new mobi.ux.LoadRecord(123)

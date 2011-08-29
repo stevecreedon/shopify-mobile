@@ -1,5 +1,4 @@
-
-Ext.regModel('Collection', {
+mobi.models.Collection = Ext.regModel('Collection', {
 	fields: [
 		{name: "title", type: "string"},
 		{name: "_id", type: "int"}
@@ -9,7 +8,7 @@ Ext.regModel('Collection', {
 	        {type: 'hasMany', model: 'Collect', name: 'collects', primaryKey:"_id", storeConfig: {id: "mobi-collects-store"}}
 	],
 	proxy: {
-		 type: 'ajax',
+		 type: 'rest', //NOT AJAX!!!
 		 url: '/db/collections?title=only',
 		 reader:{
 			type: 'json'
