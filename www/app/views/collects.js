@@ -26,10 +26,13 @@ mobi.views.Collect = {
 	        itemtap: function (list, index, element, event) {
 	            // Grab a reference the record.
 	            var collect = list.getRecord(element);
+				var collection = Ext.StoreMgr.getByKey("collections-store").getById(collect.get("collection_id"));
+	            
 	            var model = new mobi.models.Product({_id: collect.get("product_id")}, null);
-		        collect.getProduct({records: [model],
-										success: function(product, operation){ mobi.controllers.products.show(product); }
-								   });
+		        collect.getProduct({
+					 records: [model],
+					 success: function(product, operation){ mobi.controllers.products.show({product: product, collection: collection})}
+				});
 	             
 	           
 	        }

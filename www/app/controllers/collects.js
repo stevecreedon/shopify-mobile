@@ -1,13 +1,13 @@
 mobi.controllers.collects = {
-	index: function(collection){
-		var panel = mobi.views.viewport.getComponent(mobi.views.Collect.key(collection));
+	index: function(options){
+		var panel = mobi.views.viewport.getComponent(mobi.views.Collect.key(options.collection));
 		
 		if(panel == null){
-			collection.collects().load();
-			panel = mobi.views.renderCollectsList(collection);
+			options.collection.collects().load();
+			panel = mobi.views.renderCollectsList(options.collection);
 			mobi.views.viewport.add(panel);
 		}
 		
-		mobi.views.viewport.getLayout().setActiveItem(panel, {type: 'slide', direction: 'left'});
+		mobi.views.viewport.getLayout().setActiveItem(panel, {type: 'slide', direction: options.direction});
 	}
 }

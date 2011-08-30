@@ -13,7 +13,7 @@ mobi.views.Collection.List = Ext.extend(Ext.List, {
         itemtap: function (list, index, element, event) {
             // Grab a reference the record.
             var collection = list.getRecord(element);
-            mobi.controllers.collects.index(collection);
+            mobi.controllers.collects.index({collection: collection, direction: 'left'});
         }
     }
 });
