@@ -21,7 +21,7 @@ mobi.models.Collection = {
 }
 
 var store = new Ext.data.Store({
-       model: 'Collection',
-	   storeId: mobi.models.Collection.store_key
+    model: 'Collection',
+	storeId: mobi.models.Collection.store_key
 })
 

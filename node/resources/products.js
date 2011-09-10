@@ -18,9 +18,14 @@ exports.controller = {
 
 		db.collection('products', function(err, collection) {
 			collection.find({'_id':parseInt(id)}, function(err, cursor) {
-	            cursor.nextObject(function(err, doc) {          
-	              	response.write(JSON.stringify([doc]))
-	          		response.end();
+	            cursor.nextObject(function(err, doc) {
+		         	if(doc){
+						response.write(JSON.stringify([doc]));
+						response.end();
+					}else{
+						response.simpleJson(404, {content: "product not found", self: "self"});
+					}
+	          		
 	            });
 	        });
 		});

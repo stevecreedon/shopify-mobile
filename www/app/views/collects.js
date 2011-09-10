@@ -2,22 +2,34 @@
 // each item in the array returned from the Instagram API.
 
 mobi.views.renderCollectsList = function(collection){
-	var items = [new mobi.views.Collect.List({store: collection.collectsStore})];
-	var id = mobi.views.Collect.key(collection)
-	return new mobi.views.Collect.ListPanel({id: id, items: items});
+	return new mobi.views.Collect.ListPanel({collection: collection});
 }
 
 mobi.views.Collect = {
-	key: function(collection){return 'collects-view-' + collection.data._id;},
-	ListPanel: Ext.extend(Ext.Panel, {
-    	layout: 'fit',
-    	dockedItems: [{
-        xtype: 'toolbar',
-        // Note, you can pass in not only some text, but also a block of HTML, including a base64 encoded image.
-        title: 'mobi',
- 		items:  [{ ui: 'back', text: 'Back' }],
-        	defaults: { handler: function (btn, evt) {mobi.controllers.collections.index({direction: 'right'});}}
-    	}]
+	onBackClick: function(btn, evt){
+			Ext.dispatch({
+	            controller: 'collections',
+	            action: 'index',
+				direction: 'right'
+	        })
+	},
+	Index: Ext.extend(Ext.Panel, {
+		initComponent: function () {
+		    var me = this;  //me will always refer to the view instance
+    		me.layout = 'auto',
+    	    me.dockedItems = [{
+        		xtype: 'toolbar',
+         		title: 'mobi',
+ 				items:  [{ ui: 'back', text: 'Back' }],
+        		defaults: { handler: mobi.views.Collect.onBackClick}
+    		}]
+			mobi.views.Collect.Index.superclass.initComponent.apply(this, arguments);
+		},
+		setCollection: function(collection){
+			this.removeAll();
+			this.add([new mobi.views.Collect.Header({collection: collection}), new mobi.views.Collect.List({store: collection.collectsStore})])
+	 		this.doLayout();
+		}
 	}),
 	List: Ext.extend(Ext.List, {
 	    itemTpl: mobi.views.collectionProductsInnerListItemTpl(),
@@ -25,19 +37,29 @@ mobi.views.Collect = {
 		listeners: {
 	        itemtap: function (list, index, element, event) {
 	            // Grab a reference the record.
+	
 	            var collect = list.getRecord(element);
 				var collection = Ext.StoreMgr.getByKey("collections-store").getById(collect.get("collection_id"));
-	            
-	            var model = new mobi.models.Product({_id: collect.get("product_id")}, null);
-		        collect.getProduct({
-					 records: [model],
-					 success: function(product, operation){ mobi.controllers.products.show({product: product, collection: collection})}
-				});
-	             
+				var product_id = collect.get("product_id");				
+	            Ext.dispatch({
+		            controller: 'products',
+		            action: 'show',
+					collection: collection,
+					direction: 'left',
+					product_id: product_id
+		        })
 	           
 	        }
 	    }
+	}),
+	Header: Ext.extend(Ext.Panel,{
+		initComponent: function(){
+			var me = this;
+			me.layout = 'auto';
+			me.html = "<h2>" + me.collection.get("title") + "</h2>";
+			mobi.views.Collect.Header.superclass.initComponent.apply(this, arguments);
+		}
 	})
 }
 
-new mobi.ux.LoadRecord(123)
+Ext.reg('view-collect-index', mobi.views.Collect.Index);

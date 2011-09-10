@@ -1,13 +1,13 @@
-mobi.controllers.collects = {
-	index: function(options){
-		var panel = mobi.views.viewport.getComponent(mobi.views.Collect.key(options.collection));
-		
-		if(panel == null){
-			options.collection.collects().load();
-			panel = mobi.views.renderCollectsList(options.collection);
-			mobi.views.viewport.add(panel);
+Ext.regController("collects", {
+	index: function(options){	
+		if(this.indexView == null){
+			this.indexView = this.render({xtype: 'view-collect-index'});
+			mobi.viewport.add(this.indexView)
 		}
-		
-		mobi.views.viewport.getLayout().setActiveItem(panel, {type: 'slide', direction: options.direction});
+		if(options.collection.collects().data.length == 0){
+				options.collection.collects().load();
+		}
+		this.indexView.setCollection(options.collection);
+		mobi.viewport.setActiveItem(this.indexView, {type: 'slide', direction: options.direction});
 	}
-}
+});

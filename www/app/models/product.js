@@ -13,14 +13,41 @@ mobi.models.Product = Ext.regModel('Product', {
 	proxy: {
 		type: 'rest',  //NOT AJAX!!!
 		url: '/db/products',
-		appendId: true,
 		reader:{
 				type: 'json',
 		}	
 	}
 });
 
-new Ext.data.Store({
-       model: 'Product',
-	   storeId: 'product-store'
+mobi.models.Product.fromStore = function(id){
+		var store = Ext.StoreMgr.getByKey('product-store');
+		return store.getById(id);
+}
+
+mobi.models.Product.fromLoad = function(id, options){
+			var tmp = new mobi.models.Product({_id: id}, null);
+			mobi.models.Product.load('123', {
+		        	records: [tmp],
+		         	success: function(product, operation){options.success(product, options .args)},
+					callback: function(product, operation){
+						if(operation.exception){
+							
+						}else{
+							store.insert(0, [product]);
+						}
+					}
+		    });
+}
+
+
+var store = new Ext.data.Store({
+    model: 'Product',
+	storeId: 'product-store'
+})
+
+store.on('add', function(store, records, index){
+	console.log("product added")
+	console.log(store);
+	console.log(records);
+	console.log(index);
 })

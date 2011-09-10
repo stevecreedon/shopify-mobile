@@ -1,7 +1,3 @@
-mobi.views.renderCollectionsList = function(){	
-	return new mobi.views.Collection.List();
-}
-
 mobi.views.Collection = {
 	key: "collections-view"
 }
@@ -13,23 +9,34 @@ mobi.views.Collection.List = Ext.extend(Ext.List, {
         itemtap: function (list, index, element, event) {
             // Grab a reference the record.
             var collection = list.getRecord(element);
-            mobi.controllers.collects.index({collection: collection, direction: 'left'});
+            
+			Ext.dispatch({
+	            controller: 'collects',
+	            action: 'index',
+				collection: collection,
+				direction: 'left'
+	        })
         }
     }
 });
 
-mobi.views.Collection.List = Ext.extend(Ext.Panel, {
-	id: 'collections-view',
-    layout: 'fit',
-    dockedItems: [{
-        xtype: 'toolbar',
-        // Note, you can pass in not only some text, but also a block of HTML, including a base64 encoded image.
-        title: 'mobi'
-    }],
-    items: [
-        // The TeagramLists is made up of a collection of TeagramInnerLists, defined above.
-        new mobi.views.Collection.List({
-             store: Ext.StoreMgr.getByKey(mobi.models.Collection.store_key)
-        })
-    ]
+mobi.views.Collection.Show = Ext.extend(Ext.Panel, {
+	initComponent: function(){
+		var me = this;
+		me.id = 'collections-view';
+		me.layout = 'fit';
+		me.dockedItems = [{
+	        xtype: 'toolbar',
+	        title: 'mobi'
+	    }];
+	    me.items = [
+	        // The TeagramLists is made up of a collection of TeagramInnerLists, defined above.
+	        new mobi.views.Collection.List({
+	             store: Ext.StoreMgr.getByKey(mobi.models.Collection.store_key)
+	        })
+	    ];
+		mobi.views.Collection.Show.superclass.initComponent.apply(this, arguments);
+	}
 });
+
+Ext.reg('view-collections-show', mobi.views.Collection.Show);
