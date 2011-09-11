@@ -28,7 +28,8 @@ mobi.views.Collect = {
 		setCollection: function(collection){
 			this.removeAll();
 			this.add([new mobi.views.Collect.Header({collection: collection}), new mobi.views.Collect.List({store: collection.collectsStore})])
-	 		this.doLayout();
+	 		this.doComponentLayout();
+			this.doLayout();
 		}
 	}),
 	List: Ext.extend(Ext.List, {

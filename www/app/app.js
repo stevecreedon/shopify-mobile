@@ -14,8 +14,8 @@ Ext.regApplication({
 		
 	   Ext.namespace("mobi.models");
 	   Ext.namespace("mobi.controllers");
-	   Ext.namespace("mobi.views");	
-		
+	   Ext.namespace("mobi.views");
+	   	
 	   this.viewport = new mobi.views.Viewport({
 	        application: this
 	    });

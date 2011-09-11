@@ -12,7 +12,7 @@ mobi.views.Collection = {
 		            action: 'index',
 					collection: collection,
 					direction: 'left'
-		        })
+		        });
 	        }
 	    }
 	}),

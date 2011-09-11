@@ -1,7 +1,7 @@
 mobi.models.Collect = Ext.regModel('Collect', {
 	fields: [
 		{name: "product_title", type: "string"},
-		{name: 'product_url', convert: function(value, record) {return mobi.views.shopifyImage(value, "thumb");}},
+		{name: 'product_url', convert: function(value, record) {return mobi.html.shopifyImage(value, "thumb");}},
 		{name: "product_id", type: "int"},
 		{name: "collection_id", type: "int"},
 		{name: "_id", type: "int"}

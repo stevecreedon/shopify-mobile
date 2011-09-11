@@ -10,6 +10,3 @@ mobi.views.collectionProductsInnerListItemTpl = function () {
     "</div>";
 };
 
-mobi.views.shopifyImage = function(url, size){
-	return url.replace(/\.jpg/,"_" + size + ".jpg").replace(/\.png/,"_" + size + ".png")
-}

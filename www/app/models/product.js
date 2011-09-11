@@ -4,7 +4,8 @@ mobi.models.Product = Ext.regModel('Product', {
 		{name: "body_html", type: "string"},
 		{name: "price", type: "float"},
 		{name: "image_url", type: "string"},
-		{name: "_id", type: "int"}
+		{name: "_id", type: "int"},
+		{name: "images", type: "object"}
 	],
 	idProperty: "_id",
 	associations: [

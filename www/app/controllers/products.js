@@ -23,6 +23,7 @@ Ext.regController("products", {
 		}
 
 		this.showView.setProduct({product: product, collection: options.collection});
-		mobi.viewport.setActiveItem(this.showView, {type: 'slide', direction: 'left'});			
+		mobi.viewport.setActiveItem(this.showView, {type: 'slide', direction: 'left'});
+		Ext.repaint();			
 	}
 });

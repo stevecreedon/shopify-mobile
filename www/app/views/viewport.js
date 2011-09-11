@@ -3,6 +3,9 @@ mobi.views.Viewport = Ext.extend(Ext.Panel, {
     id: 'mobi-viewport',
     fullscreen: true,
     layout: 'card',
+//	listeners: {
+//		cardswitch: function(){console.log("swoitch")}
+//	},
     // Now, we initialize it.
     initComponent: function() {
 		var me = this;
