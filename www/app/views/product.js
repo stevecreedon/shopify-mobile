@@ -28,6 +28,7 @@ mobi.views.Product = {
 		    mobi.views.Product.Show.superclass.initComponent.apply(this, arguments);
 		},
 		setProduct: function(options){
+			console.log(options)
 			this.removeAll();
 			this.add([new mobi.views.Product.Header({product: options.product})]);
 			this.collection = options.collection;

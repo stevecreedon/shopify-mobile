@@ -28,7 +28,10 @@ mobi.models.Product.fromLoad = function(id, options){
 			var tmp = new mobi.models.Product({_id: id}, null);
 			mobi.models.Product.load('123', {
 		        	records: [tmp],
-		         	success: function(product, operation){options.success(product, options .args)},
+		         	success: function(product, operation){
+						options.args.product = product;
+						options.success(options.args);
+					},
 					callback: function(product, operation){
 						if(operation.exception){
 							
