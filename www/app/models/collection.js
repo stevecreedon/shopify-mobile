@@ -16,12 +16,8 @@ mobi.models.Collection = Ext.regModel('Collection', {
     }
 });
 
-mobi.models.Collection = {
-	store_key: 'collections-store',
-}
-
 var store = new Ext.data.Store({
     model: 'Collection',
-	storeId: mobi.models.Collection.store_key
+	storeId: 'collection-store'
 })
 

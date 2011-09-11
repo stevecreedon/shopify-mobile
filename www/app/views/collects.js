@@ -39,7 +39,7 @@ mobi.views.Collect = {
 	            // Grab a reference the record.
 	
 	            var collect = list.getRecord(element);
-				var collection = Ext.StoreMgr.getByKey("collections-store").getById(collect.get("collection_id"));
+				var collection = Ext.StoreMgr.getByKey('collection-store').getById(collect.get("collection_id"));
 				var product_id = collect.get("product_id");				
 	            Ext.dispatch({
 		            controller: 'products',

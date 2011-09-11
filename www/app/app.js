@@ -27,11 +27,4 @@ Ext.regApplication({
 	}	
 });
 
-mobi.ux = {
-	LoadRecord: function(id){
-		this.id = id;
-		this.getId = function(){
-			return this.id;
-		}
-	}
-}
+

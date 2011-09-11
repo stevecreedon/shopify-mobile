@@ -1,13 +1,11 @@
 Ext.regController("collections", {
 	index: function(options){
-		
 		if(this.indexView == null){
-			this.indexView = this.render({xtype: 'view-collections-show'});
-			mobi.viewport.add(this.indexView)
-			var store = Ext.StoreMgr.getByKey(mobi.models.Collection.store_key);
+			var store = Ext.StoreMgr.getByKey('collection-store');
 			store.load();
+			this.indexView = this.render({xtype: mobi.views.Collection.xtype});
+			mobi.viewport.add(this.indexView);
 		}
-		
 		mobi.viewport.setActiveItem(this.indexView, {type: 'slide', direction: options.direction});	
 	}
 });

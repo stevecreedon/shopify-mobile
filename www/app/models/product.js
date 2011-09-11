@@ -25,32 +25,25 @@ mobi.models.Product.fromStore = function(id){
 }
 
 mobi.models.Product.fromLoad = function(id, options){
-			var tmp = new mobi.models.Product({_id: id}, null);
-			mobi.models.Product.load('123', {
-		        	records: [tmp],
-		         	success: function(product, operation){
-						options.args.product = product;
-						options.success(options.args);
-					},
-					callback: function(product, operation){
-						if(operation.exception){
-							
-						}else{
-							store.insert(0, [product]);
-						}
-					}
-		    });
+	    var store = Ext.StoreMgr.getByKey('product-store');
+		var tmp = new mobi.models.Product({_id: id}, null);
+		mobi.models.Product.load('123', {
+		    records: [tmp],
+         	success: function(product, operation){
+				options.args.product = product;
+				options.success(options.args);
+			},
+			callback: function(product, operation){
+				if(operation.exception){
+					
+				}else{
+					store.insert(0, [product]);
+				}
+			}
+		});
 }
-
 
 var store = new Ext.data.Store({
     model: 'Product',
 	storeId: 'product-store'
-})
-
-store.on('add', function(store, records, index){
-	console.log("product added")
-	console.log(store);
-	console.log(records);
-	console.log(index);
 })

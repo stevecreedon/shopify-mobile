@@ -42,8 +42,9 @@ mobi.views.Product = {
 			me.html = "<h2>" + me.product.get("title") + "</h2>";
 			mobi.views.Product.Header.superclass.initComponent.apply(this, arguments);
 		}
-	})
+	}),
+	xtype: 'view-product-show'
 }
 
-Ext.reg('view-product-show', mobi.views.Product.Show);
+Ext.reg(mobi.views.Product.xtype, mobi.views.Product.Show);
 

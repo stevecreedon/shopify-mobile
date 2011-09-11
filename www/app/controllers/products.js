@@ -18,7 +18,7 @@ Ext.regController("products", {
 		}
 		
 		if(this.showView == null){
-			this.showView = this.render({xtype: 'view-product-show'});
+			this.showView = this.render({xtype: mobi.views.Product.xtype});
 			mobi.viewport.add(this.showView);
 		}
 
