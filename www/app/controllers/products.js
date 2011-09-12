@@ -18,12 +18,12 @@ Ext.regController("products", {
 		}
 		
 		if(this.showView == null){
-			this.showView = this.render({xtype: mobi.views.Product.xtype});
+			this.showView = this.render({xtype: 'view-product-show'});
 			mobi.viewport.add(this.showView);
 		}
 
 		this.showView.setProduct({product: product, collection: options.collection});
 		mobi.viewport.setActiveItem(this.showView, {type: 'slide', direction: 'left'});
-		Ext.repaint();			
+					
 	}
 });

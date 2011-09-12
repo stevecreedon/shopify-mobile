@@ -28,8 +28,11 @@ mobi.views.Product = {
 		    mobi.views.Product.Show.superclass.initComponent.apply(this, arguments);
 		},
 		setProduct: function(options){
+			//console.log(options)
 			this.removeAll();
-			this.add([mobi.views.Product.buildCarousel(options.product)]);
+			var carousel = mobi.views.Product.buildCarousel(options.product);
+			//console.log(carousel)
+			this.add(carousel);
 			this.collection = options.collection;
 			this.doLayout();
 		}
@@ -44,12 +47,11 @@ mobi.views.Product = {
 	}),
 	buildCarousel: function(product){
 		images = product.get("images");
-		var carousel = new Ext.Carousel({html: mobi.html.img(images[0].src)});
+		var carousel = new Ext.Carousel();
 		
 
 		for(i = 0; i < images.length; i++){
 			carousel.add({html: mobi.html.img(images[i].src)});
-			carousel.doLayout();
 		}
 		
 		var panel = new Ext.Panel({
@@ -63,13 +65,12 @@ mobi.views.Product = {
 		    },
 		    items: [
 		        carousel
-		    ]
+		    ],
+			height: 240
 		});
-
 		return panel;
-	}, 
-	xtype: 'view-product-show'
+	}
 }
 
-Ext.reg(mobi.views.Product.xtype, mobi.views.Product.Show);
+Ext.reg('view-product-show', mobi.views.Product.Show);
 
