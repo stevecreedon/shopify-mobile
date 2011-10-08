@@ -3,6 +3,7 @@ Ext.regController("products", {
 		var product = (options.product || mobi.models.Product.fromStore(options.product_id));
 
 		if(product == null){
+			mobi.mask.show();
 			mobi.models.Product.fromLoad(options.product_id, 
 					{success: function(){
 						Ext.dispatch({
@@ -12,6 +13,7 @@ Ext.regController("products", {
 							direction: 'left',
 							product_id: options.product_id
 				        })
+						mobi.mask.hide();
 					}, 
 					args: {collection: options.collection}});
 			return;	

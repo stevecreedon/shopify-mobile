@@ -6,6 +6,7 @@ Ext.regController("collects", {
 		}
 
 		if(options.collection.collects().data.length == 0){
+			mobi.mask.show();
 			options.collection.collects().load(
 				function(){
 					Ext.dispatch({
@@ -14,6 +15,7 @@ Ext.regController("collects", {
 						collection: options.collection,
 						direction: 'left'
 			        });
+					mobi.mask.hide();
 				}
 			);
 			return;

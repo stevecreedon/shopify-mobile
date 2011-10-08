@@ -11,6 +11,8 @@ mobi.views.Product = {
 		initComponent: function () {
 		    var me = this;  //me will always refer to the view instance
 		    me.layout = 'auto';
+		    me.scroll = 'vertical';
+		    me.centred = true;
 			me.dockedItems = [{
 		        xtype: 'toolbar',
 		        title: 'mobi',
@@ -28,11 +30,10 @@ mobi.views.Product = {
 		    mobi.views.Product.Show.superclass.initComponent.apply(this, arguments);
 		},
 		setProduct: function(options){
-			//console.log(options)
 			this.removeAll();
 			var carousel = mobi.views.Product.buildCarousel(options.product);
-			//console.log(carousel)
-			this.add(carousel);
+
+			this.add([new mobi.views.Product.Header({product: options.product}), carousel, new mobi.views.Product.Description({product: options.product})]);
 			this.collection = options.collection;
 			this.doLayout();
 		}
@@ -41,13 +42,23 @@ mobi.views.Product = {
 		initComponent: function(){
 			var me = this;
 			me.layout = 'auto';
+			me.centered = true;
 			me.html = "<h2>" + me.product.get("title") + "</h2>";
+			mobi.views.Product.Header.superclass.initComponent.apply(this, arguments);
+		}
+	}),
+	Description: Ext.extend(Ext.Panel,{
+		initComponent: function(){
+			var me = this;
+			me.layout = 'auto';
+			me.centered = true;
+			me.html = me.product.get("body_html");
 			mobi.views.Product.Header.superclass.initComponent.apply(this, arguments);
 		}
 	}),
 	buildCarousel: function(product){
 		images = product.get("images");
-		var carousel = new Ext.Carousel();
+		var carousel = new Ext.Carousel({baseCls: 'product-photo-carousel'});
 		
 
 		for(i = 0; i < images.length; i++){

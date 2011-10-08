@@ -1,13 +1,6 @@
-Ext.setup({
-    tabletStartupScreen: '/images/phone_startup.png',
-    phoneStartupScreen : '/images/phone_startup.png',
-    icon: 'icon.png',
-    glossOnIcon: false
-});
-
 Ext.regApplication({
 	tabletStartupScreen: '/images/phone_startup.png',
-    phoneStartupScreen : '/images/phone_startup.png',
+    phoneStartupScreen: '/images/phone_startup.png',
     name: 'mobi',
     defaultTarget: 'mobi-viewport',
     launch: function() {
@@ -19,6 +12,8 @@ Ext.regApplication({
 	   this.viewport = new mobi.views.Viewport({
 	        application: this
 	    });
+	
+	   this.mask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
 	   
 		Ext.dispatch({
             controller: 'collections',
@@ -26,5 +21,7 @@ Ext.regApplication({
         })
 	}	
 });
+
+
 
 
